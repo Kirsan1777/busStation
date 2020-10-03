@@ -4,8 +4,10 @@ import creator.CreateBus;
 import creator.CreateUser;
 import form.BusStation;
 import form.User;
+import input.InputInformation;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class WorkWithUser {
 
@@ -14,6 +16,21 @@ public class WorkWithUser {
         User newUser = new User();
         newUser = user.createOneUser();
         users.add(newUser);
+    }
+
+    public void deleteUser(List<User> users){
+        int number;
+        WorkWithUser tempUser = new WorkWithUser();
+        InputInformation input = new InputInformation();
+        tempUser.showUserInformation(users);
+        System.out.println("Input number for delete: ");
+        number = input.inputInt();
+        try {
+            users.remove(number);
+        } catch (IndexOutOfBoundsException e) {
+            //e.printStackTrace();
+            System.out.println("found a problem, we can not removing this user!");
+        }
     }
 
     public void showUserInformation(List<User> users){
