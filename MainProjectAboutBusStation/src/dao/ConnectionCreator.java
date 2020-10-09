@@ -6,11 +6,18 @@ import java.sql.SQLException;
 public class ConnectionCreator {
 
     public static Connection provideConnection() throws SQLException {
-        Connection connection;
-        String url = "jdbc:mysql://localhost/UsersInformation";
-        String username = "root";
-        String password = "kirsan2001";
-        connection = DriverManager.getConnection(url, username, password);
+        Connection connection = null;
+        try {
+            String url = "jdbc:mysql://localhost:3306/UsersInformation?serverTimezone=Europe/Moscow&useSSL=false&allowPublicKeyRetrieval=true";
+            //String url = "jdbc:mysql://localhost/UsersInformation?serverTimezone=Europe/Moscow&useSSL=false";
+            String username = "root";
+            String password = "kirsan2001";
+            //Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();//AAAAAAAAAAAAAAAAAAA
+            connection = DriverManager.getConnection(url, username, password);
+        }
+        catch (SQLException ex){
+            System.out.println("We have problem with connection!");
+        }
         return connection;
     }
 

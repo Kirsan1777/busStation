@@ -26,8 +26,6 @@ public class MainAdministratorInterface {
                 case 0:
                 default:
             }
-            
-
         }
     }
 

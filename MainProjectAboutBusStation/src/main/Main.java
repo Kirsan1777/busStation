@@ -1,16 +1,27 @@
 package main;
 
 import access.MainAdministratorInterface;
+import dao.ConnectionCreator;
+import dao.UsersListDAOImplement;
+import form.User;
+
+import java.sql.Connection;
+import java.sql.SQLException;//и чё это за фигня? Оно вообще должно так работать?
 
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws SQLException {
+        //Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();//AAAAAAAAAAAAAAAAAAA
         MainAdministratorInterface mainAdmin = new MainAdministratorInterface();
+        UsersListDAOImplement daoUser = new UsersListDAOImplement();
+        User user = new User();
         System.out.println("Welcome to bus station program!");
-        /*ConnectionCreator connectionCreator = new ConnectionCreator();
-        Connection conn = connectionCreator.provideConnection();*/
+        ConnectionCreator connectionCreator = new ConnectionCreator();
+        Connection conn = connectionCreator.provideConnection();
         mainAdmin.mainAdminInterface();
-
+        System.out.println("Input information from add user: ");
+        daoUser.addUser(user);
+        conn.close();
     }
 }
 /*  int integer;
