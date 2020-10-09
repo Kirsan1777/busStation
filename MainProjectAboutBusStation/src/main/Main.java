@@ -1,26 +1,43 @@
 package main;
 
 import access.MainAdministratorInterface;
+import access.ModeratorInterface;
 import dao.ConnectionCreator;
 import dao.UsersListDAOImplement;
+import exception.ProgramException;
 import form.User;
+import input.InputInformation;
 
 import java.sql.Connection;
 import java.sql.SQLException;//и чё это за фигня? Оно вообще должно так работать?
 
 
 public class Main {
-    public static void main(String[] args) throws SQLException {
-        //Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();//AAAAAAAAAAAAAAAAAAA
+    public static void main(String[] args) throws SQLException, ProgramException {
         MainAdministratorInterface mainAdmin = new MainAdministratorInterface();
-        UsersListDAOImplement daoUser = new UsersListDAOImplement();
-        User user = new User();
+        ModeratorInterface moderator = new ModeratorInterface();
+        //UsersListDAOImplement daoUser = new UsersListDAOImplement();
+        //User user = new User();
+        InputInformation input = new InputInformation();
         System.out.println("Welcome to bus station program!");
         ConnectionCreator connectionCreator = new ConnectionCreator();
         Connection conn = connectionCreator.provideConnection();
-        mainAdmin.mainAdminInterface();
-        System.out.println("Input information from add user: ");
-        daoUser.addUser(user);
+        int kod = 123;
+        while(kod != 0) {
+            System.out.println("1 - Admin \n2 - Moderator \n3 - User \n0 - Exit");
+            kod = input.inputInt();
+            switch (kod) {
+                case 1:
+                    mainAdmin.mainAdminInterface();
+                    break;
+                case 2:
+                    moderator.workingModeratorInterface();
+                    break;
+                case 3:
+                    break;
+                default:
+            }
+        }
         conn.close();
     }
 }
