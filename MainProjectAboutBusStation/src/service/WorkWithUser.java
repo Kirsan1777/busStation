@@ -1,61 +1,43 @@
 package service;
 
-import creator.CreateBus;
 import creator.CreateUser;
 import dao.UsersListDAOImplement;
-import form.BusStation;
-import form.User;
-import input.InputInformation;
+import entity.User;
+import exception.ProgramException;
+import input.ConsoleReader;
+import validator.LoginPassword;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class WorkWithUser {
 
-    public void addUser(List<User> users){
-        CreateUser user = new CreateUser();
-        User newUser = new User();
-        newUser = user.createOneUser();
-        users.add(newUser);
-    }
-
-    public void addUserDAO(){
+    public void addUserDAO() throws ProgramException {
         UsersListDAOImplement userDAO = new UsersListDAOImplement();
+        LoginPassword check = new LoginPassword();
         CreateUser userCreate = new CreateUser();
         User user = new User();
+        String result;
         user = userCreate.createOneUser();
-        userDAO.addUser(user);
+        result = check.seeLoginDao(userDAO.findAllUsers(), user);
+        if(result.equals("Error")){
+            System.out.println("This login was busy!");
+        }else {
+            userDAO.addUser(user);
+        }
+
     }
 
-    public void deleteUser(List<User> users){
-        int number;
-        WorkWithUser tempUser = new WorkWithUser();
-        InputInformation input = new InputInformation();
-        tempUser.showUserInformation(users);
-        System.out.println("Input number for delete: ");
-        number = input.inputInt();
-        try {
-            users.remove(number);
-        } catch (IndexOutOfBoundsException e) {
-            //e.printStackTrace();
-            System.out.println("found a problem, we can not removing this user!");
-        }
+
+    public void deleteUserDAO(){
+        UsersListDAOImplement userDAO = new UsersListDAOImplement();
+        ConsoleReader reader = new ConsoleReader();
+        String login;
+        System.out.println("Input login for delete: ");
+        login = reader.inputString();
+        userDAO.deleteUser(login);
     }
 
-    public void deleteUserDAO(List<User> users){
-        int number;
-        WorkWithUser tempUser = new WorkWithUser();
-        InputInformation input = new InputInformation();
-        tempUser.showUserInformation(users);
-        System.out.println("Input number for delete: ");
-        number = input.inputInt();
-        try {
-            users.remove(number);
-        } catch (IndexOutOfBoundsException e) {
-            //e.printStackTrace();
-            System.out.println("found a problem, we can not removing this user!");
-        }
-    }
+
 
     public void showUserInformation(List<User> users){
         int number = 1;
@@ -66,11 +48,10 @@ public class WorkWithUser {
         }
     }
 
+
     public WorkWithUser() {
         super();
     }
-
-
 
     @Override
     public String toString() {
@@ -87,3 +68,27 @@ public class WorkWithUser {
         return super.equals(obj);
     }
 }
+
+
+   /*public void deleteUser(List<User> users){
+        int number;
+        WorkWithUser tempUser = new WorkWithUser();
+        ConsoleReader input = new ConsoleReader();
+        tempUser.showUserInformation(users);
+        System.out.println("Input number for delete: ");
+        number = input.inputInt();
+        try {
+            users.remove(number);
+        } catch (IndexOutOfBoundsException e) {
+            //e.printStackTrace();
+            System.out.println("found a problem, we can not removing this user!");
+        }
+    }*/
+
+
+    /*public void addUser(List<User> users){
+        CreateUser user = new CreateUser();
+        User newUser = new User();
+        newUser = user.createOneUser();
+        users.add(newUser);
+    }*/

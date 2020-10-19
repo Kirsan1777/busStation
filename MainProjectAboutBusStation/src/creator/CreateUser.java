@@ -1,13 +1,13 @@
 package creator;
 
-import form.User;
-import input.InputInformation;
+import entity.User;
+import input.ConsoleReader;
 
 public class CreateUser {
 
     public User createOneUser(){
         User user = new User();
-        InputInformation cout = new InputInformation();
+        ConsoleReader cout = new ConsoleReader();
         user.setBalance(0);
         System.out.println("Input login: ");
         user.setLogin(cout.inputString());

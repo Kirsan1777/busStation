@@ -1,14 +1,14 @@
 package validator;
 
-import form.User;
-import input.InputInformation;
+import entity.User;
+import input.ConsoleReader;
 
 import java.util.List;
 
 public class TestFunction {
 
     public void test(List<User> user){
-        InputInformation in = new InputInformation();
+        ConsoleReader in = new ConsoleReader();
         LoginPassword enter = new LoginPassword();
         String login, password;
         int type;

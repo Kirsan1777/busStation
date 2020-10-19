@@ -1,7 +1,9 @@
 package service;
 
 import creator.CreateBus;
-import form.BusStation;
+import dao.BusDAOImplement;
+import entity.BusStation;
+import input.ConsoleReader;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,11 +15,12 @@ public class WorkBusStation {
         super();
     }
 
-    public void addBus(List<BusStation> busses){
+    public void addBus(){
+        BusDAOImplement busDAOImplement = new BusDAOImplement();
         CreateBus bus = new CreateBus();
         BusStation newBus = new BusStation();
         newBus = bus.createOneBus();
-        busses.add(newBus);
+        busDAOImplement.addBus(newBus);
     }
 
     public void showBusInformation(List<BusStation> busses){
@@ -29,19 +32,12 @@ public class WorkBusStation {
         }
     }
 
-    public void deleteBus(List<BusStation> busses){
-        int number;
-        Scanner in = new Scanner(System.in);
-        WorkBusStation tempBus = new WorkBusStation();
-        tempBus.showBusInformation(busses);
-        System.out.println("Input number for delete: ");
-        number = in.nextInt();
-        try {
-            busses.remove(number);
-        } catch (IndexOutOfBoundsException e) {
-            //e.printStackTrace();
-            System.out.println("found a problem");
-        }
+    public void deleteBus(){
+        ConsoleReader reader = new ConsoleReader();
+        BusDAOImplement tempBus = new BusDAOImplement();
+        System.out.println("Input number bus for delete: ");
+        int numberOfBus = reader.inputInt();
+        tempBus.deleteBus(numberOfBus);
     }
 
     public void changeInformationOfBus(List<BusStation> busses){
@@ -55,6 +51,11 @@ public class WorkBusStation {
         busInformation.setNameBus("Victoria");
         busses.set(0, busInformation);
         //todo how can I change information? 
+    }
+
+
+    public void buyTickets(){
+
     }
 
 

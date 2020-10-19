@@ -1,7 +1,5 @@
 package entity;
 
-import form.User;
-
 import java.util.ArrayList;
 import java.util.List;
 

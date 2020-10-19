@@ -1,8 +1,10 @@
 package dao;
 
 import creator.CreateUser;
+import entity.BusStation;
 import exception.ProgramException;
-import form.User;
+import entity.User;
+import input.ConsoleReader;
 
 import java.sql.*;
 import java.sql.SQLException;
@@ -14,17 +16,23 @@ public class UsersListDAOImplement {
     public void addUser(User user){
         try (Connection connection = ConnectionCreator.provideConnection();
             PreparedStatement statement = connection.prepareStatement(SqlRequest.ADD_USER)) {
-            System.out.println("Input login: ");
             statement.setString(1, user.getLogin());
-            System.out.println("Input password: ");
             statement.setString(2, user.getPassword());
             statement.setInt(3, 0);
-            //statement.setInt(3, user.getType());
-            //statement.setInt(4, user.getBalance());
             statement.setInt(4, 0);
-            statement.executeUpdate();
+            statement.executeUpdate();//command from update DB
         } catch (SQLException ex) {
             System.out.println("We have problem with connection");
+        }
+    }
+
+    public void deleteUser(String login){
+        try(Connection connection = ConnectionCreator.provideConnection();
+            PreparedStatement statement = connection.prepareStatement(SqlRequest.REMOVE_USER_BY_LOGIN)){
+            statement.setString(1, login);
+            statement.executeUpdate();
+        } catch (SQLException ex){
+            System.out.println("We have problem with connection!");
         }
     }
 

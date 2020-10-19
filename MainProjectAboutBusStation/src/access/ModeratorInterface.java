@@ -1,9 +1,8 @@
 package access;
 
 import dao.UsersListDAOImplement;
-import entity.UsersInformation;
 import exception.ProgramException;
-import input.InputInformation;
+import input.ConsoleReader;
 import service.WorkWithUser;
 
 
@@ -11,7 +10,7 @@ public class ModeratorInterface {
 
     public void workingModeratorInterface() throws ProgramException {
 
-        InputInformation input = new InputInformation();
+        ConsoleReader input = new ConsoleReader();
         MainAdministratorInterface admin = new MainAdministratorInterface();
         int choose = 123;
         while(choose != 0) {
@@ -32,10 +31,10 @@ public class ModeratorInterface {
 
     public void userInterface() throws ProgramException {
         WorkWithUser user = new WorkWithUser();
-        UsersInformation usersInformation = new UsersInformation();
-        InputInformation input = new InputInformation();
+        ConsoleReader input = new ConsoleReader();
         UsersListDAOImplement usersDAO = new UsersListDAOImplement();
         int kod = 123;
+
         while(kod != 0) {
             System.out.println("1 - add user \n2 - delete user \n3 - show users \n4 - change user\nanother - exit");
             kod = input.inputInt();
@@ -44,13 +43,12 @@ public class ModeratorInterface {
                     user.addUserDAO();
                     break;
                 case 2:
-                    user.deleteUser(usersInformation.getUserInformation());
+                    user.deleteUserDAO();
                     break;
                 case 3:
                     user.showUserInformation(usersDAO.findAllUsers());
                     break;
                 case 4:
-
                 default:
             }
         }

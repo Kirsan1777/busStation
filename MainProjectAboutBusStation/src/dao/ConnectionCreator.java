@@ -9,7 +9,6 @@ public class ConnectionCreator {
         Connection connection = null;
         try {
             String url = "jdbc:mysql://localhost:3306/UsersInformation?serverTimezone=Europe/Moscow&useSSL=false&allowPublicKeyRetrieval=true";
-            //String url = "jdbc:mysql://localhost/UsersInformation?serverTimezone=Europe/Moscow&useSSL=false";
             String username = "root";
             String password = "kirsan2001";
             //Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();//AAAAAAAAAAAAAAAAAAA

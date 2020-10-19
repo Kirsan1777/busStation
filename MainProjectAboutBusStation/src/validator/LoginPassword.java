@@ -1,5 +1,5 @@
 package validator;
-import form.User;
+import entity.User;
 
 import java.util.List;
 
@@ -14,4 +14,14 @@ public class LoginPassword {
         }
         return tempUser.getType();
     }
+
+    public String seeLoginDao(List<User> userInfo, User userLogin){
+        for( User user : userInfo ){
+            if(user.getLogin().equals(userLogin.getLogin())){
+                return "Error";
+            }
+        }
+        return userLogin.getLogin();
+    }
+
 }
